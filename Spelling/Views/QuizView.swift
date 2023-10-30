@@ -32,6 +32,8 @@ struct QuizView: View {
                         checkGuess()
                         return .handled
                     }
+                    // Cannot type in text field once guess given
+                    .disabled(outcome != .undetermined)
                 
                 Text(outcome.rawValue)
                     .frame(width: 20)
@@ -46,6 +48,9 @@ struct QuizView: View {
                 }, label: {
                     Text("Submit")
                 })
+                // Cannot check guess a second time
+                .disabled(outcome != .undetermined)
+
             }
             .padding()
         }
