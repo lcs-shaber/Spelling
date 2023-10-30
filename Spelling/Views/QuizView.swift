@@ -28,6 +28,10 @@ struct QuizView: View {
             HStack {
                 TextField("Enter the name of the item", text: $userGuess)
                     .padding(.horizontal)
+                    .onKeyPress(.return) {
+                        checkGuess()
+                        return .handled
+                    }
                 
                 Text(outcome.rawValue)
                     .frame(width: 20)
