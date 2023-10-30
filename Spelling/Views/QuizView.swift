@@ -44,6 +44,14 @@ struct QuizView: View {
                 Spacer()
                 
                 Button(action: {
+                    newWord()
+                }, label: {
+                    Text("New word")
+                })
+                // Disabled until a guess is given
+                .disabled(outcome == .undetermined)
+                
+                Button(action: {
                     checkGuess()
                 }, label: {
                     Text("Submit")
@@ -67,6 +75,14 @@ struct QuizView: View {
             outcome = .incorrect
         }
     }
+    
+    func newWord() {
+        // Reset quiz page
+        userGuess = ""
+        currentItem = itemsToSpell.randomElement()!
+        outcome = .undetermined
+    }
+
 }
 
 #Preview {
