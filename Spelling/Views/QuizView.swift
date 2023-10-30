@@ -63,6 +63,8 @@ struct QuizView: View {
                     })
                     // Cannot check guess a second time
                     .disabled(currentOutcome != .undetermined)
+                    // Cannot check guess when guess is blank
+                    .disabled(userGuess == "")
 
                 }
                 .padding()
