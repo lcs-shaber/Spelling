@@ -13,6 +13,7 @@
 		812E8CE42AEFBD150067B997 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E8CE32AEFBD150067B997 /* QuizView.swift */; };
 		812E8CE82AEFBD410067B997 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E8CE72AEFBD410067B997 /* Item.swift */; };
 		812E8CEB2AEFC2AB0067B997 /* Outcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E8CEA2AEFC2AB0067B997 /* Outcome.swift */; };
+		81CE583F2AEFC7A300B96987 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CE583E2AEFC7A300B96987 /* Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		812E8CE32AEFBD150067B997 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		812E8CE72AEFBD410067B997 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		812E8CEA2AEFC2AB0067B997 /* Outcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outcome.swift; sourceTree = "<group>"; };
+		81CE583E2AEFC7A300B96987 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				812E8CE72AEFBD410067B997 /* Item.swift */,
+				81CE583E2AEFC7A300B96987 /* Result.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				812E8CEB2AEFC2AB0067B997 /* Outcome.swift in Sources */,
+				81CE583F2AEFC7A300B96987 /* Result.swift in Sources */,
 				812E8CD52AEFBCF30067B997 /* SpellingApp.swift in Sources */,
 				812E8CE82AEFBD410067B997 /* Item.swift in Sources */,
 				812E8CE42AEFBD150067B997 /* QuizView.swift in Sources */,
@@ -319,8 +323,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.russellgordon.Spelling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -346,8 +353,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.russellgordon.Spelling;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

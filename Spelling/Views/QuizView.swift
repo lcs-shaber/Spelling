@@ -15,53 +15,78 @@ struct QuizView: View {
     
     @State var userGuess = ""
     
-    @State var outcome: Outcome = .undetermined
+    @State var currentOutcome: Outcome = .undetermined
+    
+    @State var history: [Result] = []
     
     // MARK: Computed properties
     var body: some View {
-        
-        VStack {
-            Image(currentItem.imageName)
-                .resizable()
-                .scaledToFit()
+
+        HStack {
             
-            HStack {
-                TextField("Enter the name of the item", text: $userGuess)
-                    .padding(.horizontal)
-                    .onKeyPress(.return) {
+            // Guess interface
+            VStack {
+                Image(currentItem.imageName)
+                    .resizable()
+                    .scaledToFit()
+                
+                HStack {
+                    TextField("Enter the name of the item", text: $userGuess)
+                        .padding(.horizontal)
+                        .onKeyPress(.return) {
+                            checkGuess()
+                            return .handled
+                        }
+                        // Cannot type in text field once guess given
+                        .disabled(currentOutcome != .undetermined)
+                    
+                    Text(currentOutcome.rawValue)
+                        .frame(width: 20)
+                }
+                .padding()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button(action: {
+                        newWord()
+                    }, label: {
+                        Text("New word")
+                    })
+                    // Disabled until a guess is given
+                    .disabled(currentOutcome == .undetermined)
+                    
+                    Button(action: {
                         checkGuess()
-                        return .handled
-                    }
-                    // Cannot type in text field once guess given
-                    .disabled(outcome != .undetermined)
-                
-                Text(outcome.rawValue)
-                    .frame(width: 20)
-            }
-            .padding()
-            
-            HStack {
-                Spacer()
-                
-                Button(action: {
-                    newWord()
-                }, label: {
-                    Text("New word")
-                })
-                // Disabled until a guess is given
-                .disabled(outcome == .undetermined)
-                
-                Button(action: {
-                    checkGuess()
-                }, label: {
-                    Text("Submit")
-                })
-                // Cannot check guess a second time
-                .disabled(outcome != .undetermined)
+                    }, label: {
+                        Text("Submit")
+                    })
+                    // Cannot check guess a second time
+                    .disabled(currentOutcome != .undetermined)
+
+                }
+                .padding()
 
             }
-            .padding()
+            
+            // Results interface
+            List(history) { currentResult in
+                HStack {
+                    Image(currentResult.item.imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 50)
+                    
+                    Text(currentResult.guessProvided)
+                    
+                    Spacer()
+                    
+                    Text(currentResult.outcome.rawValue)
+                }
+            }
+
         }
+        
         
     }
     
@@ -69,18 +94,28 @@ struct QuizView: View {
     func checkGuess() {
         if userGuess == currentItem.word {
             print("Correct")
-            outcome = .correct
+            currentOutcome = .correct
         } else {
             print("Incorrect")
-            outcome = .incorrect
+            currentOutcome = .incorrect
         }
     }
     
     func newWord() {
+        
+        // Add the current result to the history
+        history.append(
+            Result(
+                item: currentItem, 
+                guessProvided: userGuess,
+                outcome: currentOutcome
+            )
+        )
+        
         // Reset quiz page
         userGuess = ""
         currentItem = itemsToSpell.randomElement()!
-        outcome = .undetermined
+        currentOutcome = .undetermined
     }
 
 }
