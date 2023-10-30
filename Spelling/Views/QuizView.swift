@@ -21,7 +21,7 @@ struct QuizView: View {
     
     // MARK: Computed properties
     var body: some View {
-
+        
         HStack {
             
             // Guess interface
@@ -37,7 +37,7 @@ struct QuizView: View {
                             checkGuess()
                             return .handled
                         }
-                        // Cannot type in text field once guess given
+                    // Cannot type in text field once guess given
                         .disabled(currentOutcome != .undetermined)
                     
                     Text(currentOutcome.rawValue)
@@ -65,10 +65,10 @@ struct QuizView: View {
                     .disabled(currentOutcome != .undetermined)
                     // Cannot check guess when guess is blank
                     .disabled(userGuess == "")
-
+                    
                 }
                 .padding()
-
+                
             }
             
             // Results interface
@@ -86,7 +86,7 @@ struct QuizView: View {
                     Text(currentResult.outcome.rawValue)
                 }
             }
-
+            
         }
         
         
@@ -106,20 +106,20 @@ struct QuizView: View {
     func newWord() {
         
         // Add the current result to the history
-        history.append(
+        history.insert(
             Result(
-                item: currentItem, 
+                item: currentItem,
                 guessProvided: userGuess,
                 outcome: currentOutcome
-            )
-        )
+            ),
+            at: 0)
         
         // Reset quiz page
         userGuess = ""
         currentItem = itemsToSpell.randomElement()!
         currentOutcome = .undetermined
     }
-
+    
 }
 
 #Preview {
