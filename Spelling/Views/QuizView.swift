@@ -83,25 +83,34 @@ struct QuizView: View {
                 }
                 .padding()
                 
-                List(
-                    filtering(
-                        originalList: history,
-                        on: selectedOutcomeFilter
-                    )
-                ) { currentResult in
-                    HStack {
-                        Image(currentResult.item.imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 50)
-                        
-                        Text(currentResult.guessProvided)
-                        
-                        Spacer()
-                        
-                        Text(currentResult.outcome.rawValue)
+                List {
+                    ScrollViewReader { scrollViewProxy in
+                        let filteredList = filtering(
+                            originalList: history,
+                            on: selectedOutcomeFilter
+                        )
+                        ForEach(filteredList) { currentResult in
+                            HStack {
+                                Image(currentResult.item.imageName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 50)
+                                
+                                Text(currentResult.guessProvided)
+                                
+                                Spacer()
+                                
+                                Text(currentResult.outcome.rawValue)
+                            }
+                            .id(currentResult.id)
+                        }
+                        .onAppear {
+                            scrollViewProxy.scrollTo(filteredList.first?.id)
+                        }
                     }
+                    
                 }
+
             }
             
         }
