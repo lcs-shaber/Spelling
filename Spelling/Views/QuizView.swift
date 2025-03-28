@@ -33,10 +33,21 @@ struct QuizView: View {
                 
                 Text(currentOutcome.rawValue)
             }
-            Button {
-                checkGuess()
-            } label: {
-                Text("Submit")
+            
+            HStack {
+                
+                Button {
+                    checkGuess()
+                } label: {
+                    Text("Submit")
+                }
+                
+                Button {
+                    newWord()
+                } label: {
+                    Text("New Word")
+                }
+                
             }
 
         }
@@ -52,6 +63,12 @@ struct QuizView: View {
             currentOutcome = .incorrect
             print("incorrect")
         }
+    }
+    
+    func newWord() {
+        currentItem = itemsToSpell.randomElement()!
+        userGuess = ""
+        currentOutcome = .undetermind
     }
     
 }
