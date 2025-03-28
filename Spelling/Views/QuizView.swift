@@ -20,6 +20,9 @@ struct QuizView: View {
     // what was the outcome of the user making a guess?
     @State var currentOutcome: Outcome = .undetermind
     
+    //The List of previous results
+    @State var history: [Result] = [] // empty array
+    
     // MARK: Computed properties
     var body: some View {
         
@@ -66,6 +69,20 @@ struct QuizView: View {
     }
     
     func newWord() {
+        
+        //Save the prior result
+        history.insert(
+            Result(
+                item: currentItem,
+                guessProvided: userGuess,
+                outcome: currentOutcome
+            ),
+            at: 0
+        )
+        // DEBUG: What is in the array now?
+        print(history)
+        
+        //Picks a new word
         currentItem = itemsToSpell.randomElement()!
         userGuess = ""
         currentOutcome = .undetermind
