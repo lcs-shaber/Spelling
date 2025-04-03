@@ -23,6 +23,9 @@ struct QuizView: View {
     //The List of previous results
     @State var history: [Result] = [] // empty array
     
+    // Keep track of what the user selected from the picker for filtering
+    @State var selectedOutcomeFilter: Outcome = .undetermind // everything
+    
     // MARK: Computed properties
     var body: some View {
         
@@ -60,29 +63,43 @@ struct QuizView: View {
             .padding()
             
             // Right Side
-            List(
+            VStack {
                 
-                filtering(originalList: history, on: .incorrect)
+                // Picker of select what outcome to show
+                Picker("Filtering on", selection: $selectedOutcomeFilter) {
+                    // Options that show up in the picker
+                    Text("All results").tag(Outcome.undetermind)
+                    Text("Correct").tag(Outcome.correct)
+                    Text("Incorrect").tag(Outcome.incorrect)
+                }
                 
-                
-            ) { currentResult in
-                
-                HStack{
+                //List of previous outcomes
+                List(
                     
-                    Image(currentResult.item.imageName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50)
+                    filtering(originalList: history, on: selectedOutcomeFilter)
                     
-                    Text(currentResult.guessProvided)
                     
-                    Spacer()
+                ) { currentResult in
                     
-                    Text(currentResult.outcome.rawValue)
-                    
+                    HStack{
+                        
+                        Image(currentResult.item.imageName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50)
+                        
+                        Text(currentResult.guessProvided)
+                        
+                        Spacer()
+                        
+                        Text(currentResult.outcome.rawValue)
+                        
+                    }
+                   
                 }
                
             }
+            
             
             
         }
